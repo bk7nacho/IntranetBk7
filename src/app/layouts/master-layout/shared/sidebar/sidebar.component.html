@@ -1,0 +1,37 @@
+<div id="leftsidebar" class="sidebar">
+  <div class="sidebar-scroll">
+    <nav id="leftsidebar-nav" class="sidebar-nav">
+      <ul id="main-menu" class="metismenu">
+        <ng-container *ngFor="let group of sidebarService.groups">
+          <li class="heading">{{group.title_group}}</li>
+          <ng-container *ngFor="let menu of group.menu">
+            <ng-container *ngIf="menu.url.length > 0">
+              <li id="{{menu.idmenu}}"><a class="pointer" (click)="LoadUrl(menu.url, menu.idmenu, 0)"><i class="{{menu.icono}}"></i><span>{{menu.titulo}}</span></a></li>
+            </ng-container>
+            <ng-container *ngIf="menu.url.length == 0">
+              <li id="{{menu.idmenu}}" class="middle">
+                <a class="pointer has-arrow"><i class="{{menu.icono}}"></i><span>{{menu.titulo}}</span></a>
+                <ul>
+                  <li class="bk7item" id="{{submenu.idmenu}}" *ngFor="let submenu of menu.submenu"><a class="pointer" (click)="LoadUrl(submenu.url, submenu.idmenu, menu.idmenu)">{{submenu.titulo}}</a></li>
+                </ul>
+              </li>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+        <!--<li class="heading">Main</li>
+        <li routerLinkActive="active"><a routerLink="/dashboard"><i class="icon-home"></i><span>Dashboard</span></a></li>
+        <li class="middle">
+          <a class="has-arrow"><i class="icon-diamond"></i><span>Mantenimientos</span></a>
+          <ul>
+            <li routerLinkActive="active"><a routerLink="/mantenimiento/profesiones">Profesiones</a></li>
+            <li routerLinkActive="active"><a routerLink="/mantenimiento/tipodocumento">Tipos de Documento</a></li>
+            <li routerLinkActive="active"><a routerLink="/mantenimiento/gradoestudio">Grado de Estudios</a></li>
+            <li routerLinkActive="active"><a routerLink="/mantenimiento/periodoacademico">Periodo Academico</a></li>
+            <li routerLinkActive="active"><a routerLink="/mantenimiento/personas">Personas</a></li>
+          </ul>
+        </li>-->
+      </ul>
+
+    </nav>
+  </div>
+</div>

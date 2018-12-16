@@ -1,0 +1,120 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <div class="text-right">
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#RegistroTipoDocModal" data-backdrop="static">
+            <i class="fa fa-plus mr-2"></i>
+            <span>Nuevo</span>
+          </button>
+        </div>
+
+      </div>
+      <div class="card-body table-responsive">
+        <table class="table">
+          <thead class="thead-primary">
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Acciones</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let tipodoc of paginacion.data">
+            <td>{{tipodoc.id}}</td>
+            <td>{{tipodoc.nombre}}</td>
+            <td>{{tipodoc.descripcion}}</td>
+            <td>
+              <button
+                type="button"
+                class="btn btn-dark mr-1 ml-1"
+                title="Editar"
+                data-toggle="modal" data-target="#ModificarTipoDocModal" data-backdrop="static"
+                (click)="editar(tipodoc)"
+              ><span class="sr-only">Modificar</span> <i class="fa fa-pencil"></i></button>
+              <button
+                type="button"
+                class="btn btn-danger mr-1 ml-1"
+                title="Eliminar"
+                (click)="eliminar(tipodoc)"
+              ><span class="sr-only">Eliminar</span> <i class="fa fa-trash"></i></button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <app-paginacion
+          [paginacion]="paginacion"
+          (pageChange)="onPageChange($event)"
+          *ngIf="paginacion.data"></app-paginacion>
+        <span *ngIf="!paginacion.data" class="text-primary"><h6>Aún no existen registros</h6></span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal Registrar -->
+<div class="modal fade" id="RegistroTipoDocModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="RegistroTipoDocModalLabel">Nuevo Tipo de Documento</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="col-12">
+          <form ngNativeValidate #fnuevo="ngForm">
+            <div class="form-group">
+              <label for="nombreTipoDoc">Nombre :</label>
+              <input ngModel name="nombre" id="nombreTipoDoc" type="text" class="form-control" required/>
+            </div>
+            <div class="form-group">
+              <label for="descripcionTipoDoc">Descripción :</label>
+              <input ngModel name="descripcion" id="descripcionTipoDoc" type="text" class="form-control" />
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-secondary" (click)="limpiar(fnuevo)" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" (click)="registrar()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Modificar -->
+<div class="modal fade" id="ModificarTipoDocModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModificarTipoDocModalLabel">Editar Profesión</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="col-12">
+          <form #fmodificar="ngForm" ngNativeValidate>
+            <input [ngModel]="tipodoc.id" name="id" type="hidden"/>
+            <div class="form-group">
+              <label for="nombreTD">Nombre :</label>
+              <input [ngModel]="tipodoc.nombre" name="nombre" id="nombreTD" type="text" class="form-control" required/>
+            </div>
+            <div class="form-group">
+              <label for="descripcionTD">Descripción :</label>
+              <input [ngModel]="tipodoc.descripcion" name="descripcion" id="descripcionTD" type="text" class="form-control" />
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" (click)="actualizar()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>

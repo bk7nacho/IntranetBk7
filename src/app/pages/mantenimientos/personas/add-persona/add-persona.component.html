@@ -1,0 +1,173 @@
+<div class="row">
+  <div class="col-12">
+    <p class="alert alert-danger m-20" *ngIf="!fnewper.valid">
+      Por favor complete todos los campos obligatorios <span class="badge badge-danger bg-danger text-white"><i class="fa fa-star"></i></span>
+    </p>
+  </div>
+</div>
+<form #fnewper="ngForm">
+  <div class="card-deck">
+    <div class="card">
+      <div class="card-header bg-primary text-white">
+        <span>1. Datos Personales</span>
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+          <label for="tipodoc"><span class="badge badge-danger bg-danger text-white"><i class="fa fa-star"></i></span>Tipo de Documento</label>
+          <i class="fa fa-check-circle check m-l-5" *ngIf="tipodoc.valid && !tipodoc.pristine"></i>
+          <i class="fa fa-exclamation-circle uncheck m-l-5" *ngIf="tipodoc.invalid && tipodoc.touched"></i>
+          <select class="form-control" id="tipodoc" required ngModel name="tipodocumentos_id" #tipodoc="ngModel">
+            <option *ngFor="let tipodoc of tipodocumentos" value="{{tipodoc.id}}">{{tipodoc.nombre}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="numdoc"><span class="badge badge-danger bg-danger text-white"><i class="fa fa-star"></i></span>Número de Documento</label>
+          <i class="fa fa-check-circle check m-l-5" *ngIf="numdoc.valid && !numdoc.pristine"></i>
+          <i class="fa fa-exclamation-circle uncheck m-l-5" *ngIf="numdoc.invalid && numdoc.touched"></i>
+          <input type="text" class="form-control" required maxlength="10" id="numdoc" ngModel name="numdocumento" #numdoc="ngModel"/>
+        </div>
+        <div class="form-group">
+          <label><span class="badge badge-danger bg-danger text-white"><i class="fa fa-star"></i></span>Sexo</label>
+          <i class="fa fa-check-circle check m-l-5" *ngIf="sexo.valid && !sexo.pristine"></i>
+          <i class="fa fa-exclamation-circle uncheck m-l-5" *ngIf="sexo.invalid && sexo.touched"></i>
+          <br />
+          <label class="fancy-radio">
+            <input type="radio" name="sexo" value="M" ngModel required #sexo="ngModel">
+            <span><i></i>Masculino</span>
+          </label>
+          <label class="fancy-radio">
+            <input type="radio" name="sexo" value="F" ngModel required #sexo="ngModel">
+            <span><i></i>Femenino</span>
+          </label>
+        </div>
+        <div class="form-group">
+          <label><span class="badge badge-danger bg-danger text-white"><i class="fa fa-star"></i></span>Nombres</label>
+          <i class="fa fa-check-circle check m-l-5" *ngIf="nombre.valid && !nombre.pristine"></i>
+          <i class="fa fa-exclamation-circle uncheck m-l-5" *ngIf="nombre.invalid && nombre.touched"></i>
+          <input class="form-control" type="text" required maxlength="50" ngModel name="nombres" #nombre="ngModel"/>
+        </div>
+        <div class="form-group">
+          <label><span class="badge badge-danger bg-danger text-white"><i class="fa fa-star"></i></span>Ap. Paterno</label>
+          <i class="fa fa-check-circle check m-l-5" *ngIf="paterno.valid && !paterno.pristine"></i>
+          <i class="fa fa-exclamation-circle uncheck m-l-5" *ngIf="paterno.invalid && paterno.touched"></i>
+          <input class="form-control" type="text" required maxlength="50" ngModel name="paterno" #paterno="ngModel"/>
+        </div>
+        <div class="form-group">
+          <label><span class="badge badge-danger bg-danger text-white"><i class="fa fa-star"></i></span>Ap. Materno</label>
+          <i class="fa fa-check-circle check m-l-5" *ngIf="materno.valid && !materno.pristine"></i>
+          <i class="fa fa-exclamation-circle uncheck m-l-5" *ngIf="materno.invalid && materno.touched"></i>
+          <input class="form-control" type="text" required maxlength="50" ngModel name="materno" #materno="ngModel"/>
+        </div>
+        <div class="form-group">
+          <label><span class="badge badge-danger bg-danger text-white"><i class="fa fa-star"></i></span>Fec. Nacimiento</label>
+          <i class="fa fa-check-circle check m-l-5" *ngIf="nacimiento.valid && !nacimiento.pristine"></i>
+          <i class="fa fa-exclamation-circle uncheck m-l-5" *ngIf="nacimiento.invalid && nacimiento.touched"></i>
+          <input class="form-control" type="date" required placeholder="dd/mm/yyyy" ngModel name="nacimiento" #nacimiento="ngModel"/>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header bg-primary text-white">
+        <span>2. Dirección / Grado de Instrucción</span>
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+          <label><span class="badge badge-danger bg-danger text-white"><i class="fa fa-star"></i></span>Pais</label>
+          <i class="fa fa-check-circle check m-l-5" *ngIf="pais.valid && !pais.pristine"></i>
+          <i class="fa fa-exclamation-circle uncheck m-l-5" *ngIf="pais.invalid && pais.touched"></i>
+          <select class="form-control" ngModel name="paises_id" #pais="ngModel" required>
+            <option *ngFor="let pais of paises" value="{{pais.id}}"> {{pais.nombre}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label><span class="badge badge-danger bg-danger text-white"><i class="fa fa-star"></i></span>Departamento</label>
+          <i class="fa fa-check-circle check m-l-5" *ngIf="departamentosCtrl.valid && !departamentosCtrl.pristine"></i>
+          <i class="fa fa-exclamation-circle uncheck m-l-5" *ngIf="departamentosCtrl.invalid && departamentosCtrl.touched"></i>
+          <select class="form-control" (change)="onChangeDepartamento($event.target.value)" ngModel name="departamentos_id" #departamentosCtrl="ngModel" required>
+            <option *ngFor="let departamento of departamentos" [value]="departamento.id"> {{departamento.departamento}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label><span class="badge badge-danger bg-danger text-white"><i class="fa fa-star"></i></span>Provincia</label>
+          <i class="fa fa-check-circle check m-l-5" *ngIf="prov.valid && !prov.pristine"></i>
+          <i class="fa fa-exclamation-circle uncheck m-l-5" *ngIf="prov.invalid && prov.touched"></i>
+          <select class="form-control" (change)="onChangeProvincia($event.target.value)" ngModel name="provincias_id" #prov="ngModel" required>
+            <option *ngFor="let provincia of provincias" [value]="provincia.id"> {{provincia.provincia}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label><span class="badge badge-danger bg-danger text-white"><i class="fa fa-star"></i></span>Distrito</label>
+          <i class="fa fa-check-circle check m-l-5" *ngIf="dist.valid && !dist.pristine"></i>
+          <i class="fa fa-exclamation-circle uncheck m-l-5" *ngIf="dist.invalid && dist.touched"></i>
+          <select class="form-control" name="distritos_id" ngModel #dist="ngModel" required>
+            <option *ngFor="let distrito of distritos" [value]="distrito.id"> {{distrito.distrito}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label><span class="badge badge-danger bg-danger text-white"><i class="fa fa-star"></i></span>Dirección</label>
+          <i class="fa fa-check-circle check m-l-5" *ngIf="direccion.valid && !direccion.pristine"></i>
+          <i class="fa fa-exclamation-circle uncheck m-l-5" *ngIf="direccion.invalid && direccion.touched"></i>
+          <input type="text" class="form-control" ngModel name="direccion" #direccion="ngModel" required/>
+        </div>
+        <div class="form-group">
+          <label>Grado de Estudios</label>
+          <i class="fa fa-check-circle check m-l-5" *ngIf="gradoestudio.valid && !gradoestudio.pristine"></i>
+          <i class="fa fa-exclamation-circle uncheck m-l-5" *ngIf="gradoestudio.invalid && gradoestudio.touched"></i>
+          <select class="form-control" ngModel name="gradoestudios_id" #gradoestudio="ngModel">
+            <option *ngFor="let gradoestudio of gradoestudios" [value]="gradoestudio.id">{{gradoestudio.nombre}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Profesión</label>
+          <i class="fa fa-check-circle check m-l-5" *ngIf="profesion.valid && !profesion.pristine"></i>
+          <i class="fa fa-exclamation-circle uncheck m-l-5" *ngIf="profesion.invalid && profesion.touched"></i>
+          <select class="form-control"ngModel name="profesiones_id" #profesion="ngModel">
+            <option *ngFor="let profesion of profesiones" [value]="profesion.id">{{profesion.nombre}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header bg-primary text-white">
+        <span>3. Info. de Contacto</span>
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+          <label>Telf. Fijo 1</label>
+          <i class="fa fa-check-circle check m-l-5" *ngIf="fijo1.valid && !fijo1.pristine"></i>
+          <i class="fa fa-exclamation-circle uncheck m-l-5" *ngIf="fijo1.invalid && fijo1.touched"></i>
+          <input class="form-control" type="text" ngModel name="fijo1" #fijo1="ngModel"/>
+        </div>
+        <div class="form-group">
+          <label>Telf. Fijo 2</label>
+          <i class="fa fa-check-circle check m-l-5" *ngIf="fijo2.valid && !fijo2.pristine"></i>
+          <i class="fa fa-exclamation-circle uncheck m-l-5" *ngIf="fijo2.invalid && fijo2.touched"></i>
+          <input class="form-control" type="text" ngModel name="fijo2" #fijo2="ngModel"/>
+        </div>
+        <div class="form-group">
+          <label>Celular 1</label>
+          <i class="fa fa-check-circle check m-l-5" *ngIf="celular1.valid && !celular1.pristine"></i>
+          <i class="fa fa-exclamation-circle uncheck m-l-5" *ngIf="celular1.invalid && celular1.touched"></i>
+          <input class="form-control" type="text" ngModel name="celular1" #celular1="ngModel"/>
+        </div>
+        <div class="form-group">
+          <label>Celular 2</label>
+          <i class="fa fa-check-circle check m-l-5" *ngIf="celulardos.valid && !celulardos.pristine"></i>
+          <i class="fa fa-exclamation-circle uncheck m-l-5" *ngIf="celulardos.invalid && celulardos.touched"></i>
+          <input class="form-control" type="text" ngModel name="celular2" #celulardos="ngModel"/>
+        </div>
+        <div class="form-group">
+          <label><span class="badge badge-danger bg-danger text-white"><i class="fa fa-star"></i></span>Correo Personal</label>
+          <i class="fa fa-check-circle check m-l-5" *ngIf="correo.valid && !correo.pristine"></i>
+          <i class="fa fa-exclamation-circle uncheck m-l-5" *ngIf="correo.invalid && correo.touched"></i>
+          <input type="email" class="form-control" ngModel name="correopersonal" email required #correo="ngModel"/>
+        </div>
+        <button type="button" (click)="registrarPersona(fnewper)" class="btn btn-danger btn-lg btn-block" [disabled]="!fnewper.valid"><i class="fa fa-save m-r-5"></i> <span>Guardar</span></button>
+        <a href="javascript:history.go(-1)" class="btn btn-dark btn-lg btn-block"><i class="fa fa-arrow-left m-r-5"></i> <span>Regresar</span></a>
+      </div>
+    </div>
+  </div>
+</form>
+<br>

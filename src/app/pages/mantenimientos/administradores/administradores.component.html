@@ -1,0 +1,60 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="text-right">
+                    <button type="button" class="btn btn-primary" (click)="addAdministrador()">
+                        <i class="fa fa-plus mr-2"></i>
+                        <span>Nuevo</span>
+                    </button>
+                </div>
+
+            </div>
+            <div class="table-responsive card-body">
+                <table class="table">
+                    <thead class="thead-primary">
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Ap. Paterno</th>
+                        <th scope="col">Ap. Materno</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let admin of paginacion.data">
+                        <td>{{admin.id}}</td>
+                        <td>{{admin.personas.nombres}}</td>
+                        <td>{{admin.personas.paterno}}</td>
+                        <td>{{admin.personas.materno}}</td>
+                        <td>{{admin.users.usuario}}</td>
+                        <td [innerHtml]="admin.estado | estado"></td>
+                        <td>
+                            <button
+                                    type="button"
+                                    class="btn btn-dark mr-1 ml-1"
+                                    title="Editar"
+                                    (click)="editar(admin.id)"
+                            ><span class="sr-only">Modificar</span> <i class="fa fa-pencil"></i></button>
+                            <button
+                                    type="button"
+                                    class="btn btn-danger mr-1 ml-1"
+                                    title="Eliminar"
+                                    (click)="eliminar(admin)"
+                            ><span class="sr-only">Eliminar</span> <i class="fa fa-trash"></i></button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <app-paginacion
+                        [paginacion]="paginacion"
+                        (pageChange)="onPageChange($event)"
+                        *ngIf="paginacion.data"></app-paginacion>
+                <span *ngIf="!paginacion.data" class="text-primary"><h6>Aún no existen registros</h6></span>
+            </div>
+        </div>
+
+    </div>
+</div>

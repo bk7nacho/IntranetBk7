@@ -1,0 +1,44 @@
+<nav aria-label="...">
+  <ul class="pagination">
+    <li class="page-item" [class.disabled]="paginacion.current_page == 1"><span class="page-link" (click)="selectPage(paginacion.first_page_url, $event)"><a>Inicio</a></span></li>
+    <li class="page-item" [class.disabled]="paginacion.current_page == 1"><span class="page-link" (click)="selectPage(paginacion.prev_page_url, $event)">Anterior</span></li>
+    <li class="page-item" *ngIf="(paginacion.current_page - range) > 1"><a class="page-link">...</a></li>
+    <li class="page-item" *ngFor="let page of pages | async" [class.active]="page === paginacion.current_page">
+      <a class="page-link" (click)="selectPage(getUrlPage(page), $event)">{{page}}
+        <span class="sr-only" *ngIf="page === paginacion.current_page">(current)</span>
+      </a>
+    </li>
+    <li class="page-item" *ngIf="(paginacion.current_page + range) < paginacion.last_page"><a class="page-link">...</a></li>
+    <li class="page-item" [class.disabled]="paginacion.current_page == paginacion.last_page"><span class="page-link" (click)="selectPage(paginacion.next_page_url, $event)">Siguiente</span></li>
+    <li class="page-item" [class.disabled]="paginacion.current_page == paginacion.last_page"><span class="page-link" (click)="selectPage(paginacion.last_page_url, $event)">Final</span></li>
+  </ul>
+</nav>
+
+<!--
+
+<ul class="pagination">
+  <li (click)="selectPage(1, $event)" [class.disabled]="currentPage == 1">
+    <a href="" title="Go to first page">&laquo;</a>
+  </li>
+  <li (click)="selectPage(currentPage - 1, $event)" [class.disabled]="currentPage == 1">
+    <a href="" title="Go to previous page">&lsaquo;</a>
+  </li>
+  <li class="disabled" (click)="cancelEvent($event)" *ngIf="(currentPage - range) > 1">
+    <a href="">...</a>
+  </li>
+  <li *ngFor="let page of pages | async" [class.active]="page == currentPage">
+    <a href="" (click)="selectPage(page, $event)">
+      {{page}}
+    </a>
+  </li>
+  <li class="disabled" (click)="cancelEvent($event)" *ngIf="(currentPage + range) < totalPages">
+    <a href="">...</a>
+  </li>
+  <li (click)="selectPage(currentPage + 1, $event)" [class.disabled]="currentPage == totalPages">
+    <a href="" title="Go to next page">&rsaquo;</a>
+  </li>
+  <li (click)="selectPage(totalPages, $event)" [class.disabled]="currentPage == totalPages">
+    <a href="" title="Go to last page">&raquo;</a>
+  </li>
+</ul>
+-->
